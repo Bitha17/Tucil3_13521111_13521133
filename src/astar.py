@@ -1,5 +1,6 @@
 import math
 import heapq
+import graph
 
 def eucilidean(point1, point2):
     return math.sqrt((point1.x - point2.x)**2 + (point1.y - point2.y)**2)
@@ -18,10 +19,11 @@ def astar(graph, start, end):
 
         if current == end:
             path = []
+            dist = current.f
             while current:
                 path.append(current)
                 current = current.parent
-            return path[::-1]
+            return path[::-1], dist
         
         for neighbor in current.neighbors:
             temp_g = current.g + eucilidean(current,neighbor)
@@ -33,4 +35,4 @@ def astar(graph, start, end):
                 neighbor.parent = current
                 heapq.heappush(heap, neighbor)
 
-    return None
+    return None, math.inf

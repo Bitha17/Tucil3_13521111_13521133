@@ -1,16 +1,21 @@
+import math
+
 class Node:
-    def __init__(self, id, x, y):
-        self.id = id
+    def __init__(self, name, x, y):
+        self.name = name
         self.x = x
         self.y = y
         self.neighbors = []
-        self.g = -1
-        self.h = -1
-        self.f = -1
+        self.g = math.inf
+        self.h = math.inf
+        self.f = math.inf
         self.parent = None
     
     def addNeighbor(self,neighbor):
         self.neighbors.append(neighbor)
+
+    def __lt__(self,other):
+        return self.f < other.f
 
 class Edge:
     def __init__(self,source,target):
