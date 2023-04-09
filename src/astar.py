@@ -5,7 +5,7 @@ import graph
 def eucilidean(point1, point2):
     return math.sqrt((point1.x - point2.x)**2 + (point1.y - point2.y)**2)
 
-def astar(graph, start, end):
+def astar(start, end):
     # Inisialisasi nilai g, h, dan f
     start.g = 0
     start.h = eucilidean(start, end)
