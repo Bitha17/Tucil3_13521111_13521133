@@ -1,7 +1,8 @@
 import math
 
 class Node:
-    def __init__(self, name, x, y):
+    def __init__(self, id, name, x, y):
+        self.id = id
         self.name = name
         self.x = x
         self.y = y
@@ -23,7 +24,8 @@ class Edge:
         self.target = target
 
 class Graph:
-    def __init__(self):
+    def __init__(self, n):
+        self.n = n
         self.nodes = []
         self.edges = []
 

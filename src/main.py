@@ -1,10 +1,14 @@
 import astar
 import readfile as r
 import matplotlib.pyplot as plt
+import visualize as v
 
-graph = r.read_file("../test/test.txt")
+graph, adj, coor = r.read_file("../test/test.txt")
+v.visualize1(graph, adj, coor)
+
 start_name = input("Start point: ")
 end_name = input("End point: ")
+
 
 for node in graph.nodes:
     if node.name == start_name:
@@ -20,6 +24,7 @@ if path != None:
         print(node.name, end=" ")
     print()
     print(dist)
-    plt.show()
 else:
     print("no path")
+
+v.visualize2(graph, path, adj, coor)
