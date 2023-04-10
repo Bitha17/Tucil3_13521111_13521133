@@ -3,7 +3,7 @@ import astar as a
 import matplotlib.pyplot as plt
 import numpy as np
 
-def visualize1(graph,adj,coordinates):
+def visualize1(graph,adj,coordinates,ax):
     G = nx.Graph()
     edge_labels = {}
     for i in range(graph.n):
@@ -19,12 +19,11 @@ def visualize1(graph,adj,coordinates):
         labels[i] = graph.nodes[i].name
     
     # draw the graph with labels
-    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False)
-    nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels)
+    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False, ax=ax)
+    nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels, ax=ax)
 
-    plt.show()
 
-def visualize2(graph,path,adj,coordinates):
+def visualize2(graph,path,adj,coordinates,ax):
     G = nx.Graph()
     edge_labels = {}
     edge_colors = {}
@@ -50,8 +49,8 @@ def visualize2(graph,path,adj,coordinates):
         labels[i] = graph.nodes[i].name
     
     # draw the graph with labels
-    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False)
-    nx.draw_networkx_edges(G, coordinates, edge_color=colors)
-    nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels)
+    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False,ax=ax)
+    nx.draw_networkx_edges(G, coordinates, edge_color=colors,ax=ax)
+    nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels,ax=ax)
 
-    plt.show()
+    # plt.show()

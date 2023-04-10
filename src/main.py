@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import visualize as v
 
 graph, adj, coor = r.read_file("../test/test.txt")
-v.visualize1(graph, adj, coor)
+# v.visualize1(graph, adj, coor)
 
 start_name = input("Start point: ")
 end_name = input("End point: ")
@@ -27,4 +27,4 @@ if path != None:
 else:
     print("no path")
 
-v.visualize2(graph, path, adj, coor)
+# v.visualize2(graph, path, adj, coor)
