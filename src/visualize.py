@@ -19,7 +19,7 @@ def visualize1(graph,adj,coordinates):
         labels[i] = graph.nodes[i].name
     
     # draw the graph with labels
-    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False)
+    nx.draw_networkx(G, coordinates, with_labels=True, labels=labels, arrows=False)
     nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels)
 
     plt.show()
@@ -50,7 +50,7 @@ def visualize2(graph,path,adj,coordinates):
         labels[i] = graph.nodes[i].name
     
     # draw the graph with labels
-    nx.draw(G, coordinates, with_labels=True, labels=labels, arrows=False)
+    nx.draw_networkx(G, coordinates, with_labels=True, labels=labels, arrows=False)
     nx.draw_networkx_edges(G, coordinates, edge_color=colors)
     nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels)
 

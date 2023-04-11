@@ -11,6 +11,7 @@ class Node:
         self.h = math.inf
         self.f = math.inf
         self.parent = None
+        self.checked = False
     
     def addNeighbor(self,neighbor):
         self.neighbors.append(neighbor)
