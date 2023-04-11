@@ -16,7 +16,7 @@ class App(customtkinter.CTk):
 
         # set background color
         App.configure(self,fg_color="#C1CEFE")
-        self.geometry("1100x650")
+        self.geometry("1900x1200")
         self.title("Shortest Path")
 
         # top frame
@@ -38,14 +38,29 @@ class App(customtkinter.CTk):
 
 
         # Frames
-        frame1 = customtkinter.CTkFrame(self, corner_radius=10, fg_color="#7189FF")
-        frame1.pack(pady=0,padx=70,side="left")
+        frame1 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid", width=300)
+        frame1.pack(fill="both",side="left", padx=25, pady=80)
 
         frame2 = customtkinter.CTkFrame(self, corner_radius=10, fg_color="#7189FF")
-        frame2.pack(pady=0,padx=40,side="left")
+        frame2.pack(side="left",padx=25, pady=100)
 
-        frame3 = customtkinter.CTkFrame(self, corner_radius=10, fg_color="#7189FF")
-        frame3.pack(pady=0,padx=40,side="left")
+        frame3 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid",width=300, height=500)
+        frame3.pack(fill="both",side="left",padx=25, pady=50)
+
+        frame4 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid",width=300, height=500)
+        frame4.pack(fill="both",side="left",padx=25, pady=50)
+
+        label_astar= customtkinter.CTkLabel(master=frame3, 
+                                            textvariable=tk.StringVar(value="A*"),
+                                            text_font=("MV Boli",15),
+                                            corner_radius=50)
+        label_astar.place(x=70)
+
+        label_ucs= customtkinter.CTkLabel(master=frame4, 
+                                            textvariable=tk.StringVar(value="UCS"),
+                                            text_font=("MV Boli",15),
+                                            corner_radius=50)
+        label_ucs.place(x=70)
 
         def select_file():
             file_path = filedialog.askopenfilename()
@@ -59,11 +74,11 @@ class App(customtkinter.CTk):
             v.visualize1(graph, adj, coor, self.ax)
             # Create a canvas for the Figure and add it to the GUI
             self.canvas = FigureCanvasTkAgg(self.fig, master=frame1)
-            self.canvas.get_tk_widget().grid(row=0,column=0, padx=10, pady=10)
+            self.canvas.get_tk_widget().place(x=39, y=20)
 
         # Create the button
         select_file_button = customtkinter.CTkButton(frame1, text="Select File", width = 100, height = 32, border_width = 1, fg_color="#758EC2", command=select_file)
-        select_file_button.grid(padx=50,pady=50, row=1,column=0)
+        select_file_button.place(x=100, y=280)
 
         def calculate():
             start_name = input_field1.get()
@@ -83,7 +98,7 @@ class App(customtkinter.CTk):
             v.visualize2(graph, path, adj, coor,self.ax)
             # Create a canvas for the Figure and add it to the GUI
             self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
-            self.canvas.get_tk_widget().grid(row=0,column=0, padx=10, pady=10)
+            self.canvas.get_tk_widget().place(x=39, y=50)
 
             if path is not None:
                 ans = "Path: "
@@ -95,15 +110,16 @@ class App(customtkinter.CTk):
                 res_label = customtkinter.CTkLabel(master=frame3,
                                                 textvariable=res,
                                                 text_font=("MV Boli",10),
-                                                corner_radius=8)
+                                                corner_radius=8, 
+                                                width=300)
             else:
                 res = tk.StringVar(value="No path found")
                 res_label = customtkinter.CTkLabel(master=frame3,
                                                 textvariable=res,
-                                                text_font=("MV Boli",15),
-                                                corner_radius=15)
-
-            res_label.grid(row=1, column=0,padx=30)
+                                                text_font=("MV Boli",22),
+                                                corner_radius=8, 
+                                                width=300)
+            res_label.place(y=350)
 
         # Create an input field
         text1 = tk.StringVar(value="Start Node")
