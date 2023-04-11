@@ -7,6 +7,8 @@ import os
 # import main as main
 import astar
 import ucs
+import graph as g
+import copy
 import visualize as v
 import readfile as r
 from tkinter import filedialog
@@ -14,6 +16,10 @@ from tkinter import filedialog
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
+
+        # graph = g.Graph(0)
+        # adj = []
+        # coor = []
 
         # set background color
         App.configure(self,fg_color="#C1CEFE")
@@ -85,42 +91,13 @@ class App(customtkinter.CTk):
             start_name = input_field1.get()
             end_name = input_field2.get()
 
-            for node in graph.nodes:
+            graph_temp = copy.deepcopy(graph)
+
+            for node in graph_temp.nodes:
                 if node.name == start_name:
                     start = node
                 if node.name == end_name:
                     end = node
-
-            path1, dist1 = astar.astar(start, end)
-
-            # Create a Figure object and add a subplot to it
-            self.fig = Figure(figsize=(5, 5), dpi=50)
-            self.ax = self.fig.add_subplot(111)
-            v.visualize2(graph, path1, adj, coor,self.ax)
-            # Create a canvas for the Figure and add it to the GUI
-            self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
-            self.canvas.get_tk_widget().place(x=39, y=50)
-
-            if path1 is not None:
-                ans = "Path: "
-                for node in path1:
-                    ans += node.name
-                ans += "\n"
-                ans += ("distance = " + str(dist1))
-                res = tk.StringVar(value=ans)
-                res_label = customtkinter.CTkLabel(master=frame3,
-                                                textvariable=res,
-                                                text_font=("MV Boli",10),
-                                                corner_radius=8, 
-                                                width=300)
-            else:
-                res = tk.StringVar(value="No path found")
-                res_label = customtkinter.CTkLabel(master=frame3,
-                                                textvariable=res,
-                                                text_font=("MV Boli",22),
-                                                corner_radius=8, 
-                                                width=300)
-            res_label.place(y=350)
 
             path2, dist2 = ucs.ucs(start,end)
 
@@ -152,6 +129,46 @@ class App(customtkinter.CTk):
                                                 corner_radius=8, 
                                                 width=300)
             res_label2.place(y=350)
+
+            graph_temp = copy.deepcopy(graph)
+
+            for node in graph_temp.nodes:
+                if node.name == start_name:
+                    start = node
+                if node.name == end_name:
+                    end = node
+            
+            path1, dist1 = astar.astar(start, end)
+
+            # Create a Figure object and add a subplot to it
+            self.fig = Figure(figsize=(5, 5), dpi=50)
+            self.ax = self.fig.add_subplot(111)
+            v.visualize2(graph, path1, adj, coor,self.ax)
+            # Create a canvas for the Figure and add it to the GUI
+            self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
+            self.canvas.get_tk_widget().place(x=39, y=50)
+
+            if path1 is not None:
+                ans = "Path: "
+                for node in path1:
+                    ans += node.name
+                ans += "\n"
+                ans += ("distance = " + str(dist1))
+                res = tk.StringVar(value=ans)
+                res_label = customtkinter.CTkLabel(master=frame3,
+                                                textvariable=res,
+                                                text_font=("MV Boli",10),
+                                                corner_radius=8, 
+                                                width=300)
+            else:
+                res = tk.StringVar(value="No path found")
+                res_label = customtkinter.CTkLabel(master=frame3,
+                                                textvariable=res,
+                                                text_font=("MV Boli",22),
+                                                corner_radius=8, 
+                                                width=300)
+            res_label.place(y=350)
+
 
         # Create an input field
         text1 = tk.StringVar(value="Start Node")
