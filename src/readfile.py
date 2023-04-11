@@ -17,7 +17,6 @@ def read_file(filename):
         for line in f:
             adjacency_matrix.append(list(map(int, line.strip().split())))
 
-        # create a NetworkX graph from the adjacency matrix
         for i in range(n):
             for j in range(i,n):
                 if adjacency_matrix[i][j] == 1:
@@ -25,6 +24,3 @@ def read_file(filename):
                     graph.addEdge(edge)
         
         return graph, adjacency_matrix, coordinates
-
-
-

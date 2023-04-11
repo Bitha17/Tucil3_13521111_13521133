@@ -32,35 +32,35 @@ class App(customtkinter.CTk):
         text_var = tk.StringVar(value="Shortest Path with A* and UCS")
         label = customtkinter.CTkLabel(master=frame,
                                     textvariable=text_var,
-                                    text_font=("MV Boli",33),
+                                    font=("MV Boli",33),
                                     corner_radius=8)
         label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
 
         # Frames
-        frame1 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid", width=300)
+        frame1 = customtkinter.CTkFrame(self, fg_color="#7189FF", width=300)
         frame1.pack(fill="both",side="left", padx=25, pady=80)
 
         frame2 = customtkinter.CTkFrame(self, corner_radius=10, fg_color="#7189FF")
         frame2.pack(side="left",padx=25, pady=60)
 
-        frame3 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid",width=300, height=500)
+        frame3 = customtkinter.CTkFrame(self, fg_color="#7189FF", width=300, height=500)
         frame3.pack(fill="both",side="left",padx=25, pady=50)
 
-        frame4 = customtkinter.CTkFrame(self, fg_color="#7189FF", relief="solid",width=300, height=500)
+        frame4 = customtkinter.CTkFrame(self, fg_color="#7189FF", width=300, height=500)
         frame4.pack(fill="both",side="left",padx=25, pady=50)
 
         label_astar= customtkinter.CTkLabel(master=frame3, 
                                             textvariable=tk.StringVar(value="A*"),
-                                            text_font=("MV Boli",15),
+                                            font=("MV Boli",15), width=300,
                                             corner_radius=50)
-        label_astar.place(x=70)
+        label_astar.place(x=0)
 
         label_ucs= customtkinter.CTkLabel(master=frame4, 
                                             textvariable=tk.StringVar(value="UCS"),
-                                            text_font=("MV Boli",15),
+                                            font=("MV Boli",15), width=300,
                                             corner_radius=50)
-        label_ucs.place(x=70)
+        label_ucs.place(x=0)
 
         def select_file():
             file_path = filedialog.askopenfilename()
@@ -70,22 +70,22 @@ class App(customtkinter.CTk):
             graph, adj, coor = r.read_file(file_path)
             if graph.n >= 8:
                 # Create a Figure object and add a subplot to it
-                self.fig = Figure(figsize=(5, 5), dpi=50)
+                self.fig = Figure(figsize=(5, 5), dpi=80)
                 self.ax = self.fig.add_subplot(111)
                 v.visualize1(graph, adj, coor, self.ax)
                 # Create a canvas for the Figure and add it to the GUI
                 self.canvas = FigureCanvasTkAgg(self.fig, master=frame1)
-                self.canvas.get_tk_widget().place(x=39, y=20)
+                self.canvas.get_tk_widget().place(x=25, y=20)
             else:
                 label_file_error = customtkinter.CTkLabel(master=frame1, 
                                             textvariable=tk.StringVar(value="The number of nodes\ndoes not reach\nthe minimum of 8"),
-                                            text_font=("MV Boli",15),
-                                            corner_radius=8, width=300,height=270)
+                                            font=("MV Boli",15),
+                                            corner_radius=8, width=300,height=280)
                 label_file_error.place(x=0)
 
         # Create the button
         select_file_button = customtkinter.CTkButton(frame1, text="Select File", width = 100, height = 32, border_width = 1, fg_color="#758EC2", command=select_file)
-        select_file_button.place(x=100, y=280)
+        select_file_button.place(x=100, y=290)
 
         def calculate():
             if graph.n >= 8:
@@ -105,7 +105,7 @@ class App(customtkinter.CTk):
                 if start not in graph_temp.nodes or end not in graph_temp.nodes:
                     label_error= customtkinter.CTkLabel(master=frame2, 
                                                 textvariable=tk.StringVar(value="Invalid start or end"),
-                                                text_font=("MV Boli",10),
+                                                font=("MV Boli",10),
                                                 corner_radius=8)
                 else:
                     label_error= customtkinter.CTkLabel(master=frame2,textvariable=tk.StringVar(value=""))
@@ -113,12 +113,12 @@ class App(customtkinter.CTk):
                     path2, dist2 = ucs.ucs(start,end)
 
                     # Create a Figure object and add a subplot to it
-                    self.fig = Figure(figsize=(5, 5), dpi=50)
+                    self.fig = Figure(figsize=(5, 5), dpi=80)
                     self.ax = self.fig.add_subplot(111)
                     v.visualize2(graph, path2, adj, coor,self.ax)
                     # Create a canvas for the Figure and add it to the GUI
                     self.canvas = FigureCanvasTkAgg(self.fig, master=frame4)
-                    self.canvas.get_tk_widget().place(x=39, y=50)
+                    self.canvas.get_tk_widget().place(x=25, y=50)
 
                     if path2 is not None:
                         ans = "Path: "
@@ -129,14 +129,14 @@ class App(customtkinter.CTk):
                         res2 = tk.StringVar(value=ans)
                         res_label2 = customtkinter.CTkLabel(master=frame4,
                                                         textvariable=res2,
-                                                        text_font=("MV Boli",10),
+                                                        font=("MV Boli",10),
                                                         corner_radius=8, 
                                                         width=300)
                     else:
                         res2 = tk.StringVar(value="No path found")
                         res_label2 = customtkinter.CTkLabel(master=frame4,
                                                         textvariable=res2,
-                                                        text_font=("MV Boli",22),
+                                                        font=("MV Boli",22),
                                                         corner_radius=8, 
                                                         width=300)
                     res_label2.place(y=350)
@@ -152,12 +152,12 @@ class App(customtkinter.CTk):
                     path1, dist1 = astar.astar(start, end)
 
                     # Create a Figure object and add a subplot to it
-                    self.fig = Figure(figsize=(5, 5), dpi=50)
+                    self.fig = Figure(figsize=(5, 5), dpi=80)
                     self.ax = self.fig.add_subplot(111)
                     v.visualize2(graph, path1, adj, coor,self.ax)
                     # Create a canvas for the Figure and add it to the GUI
                     self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
-                    self.canvas.get_tk_widget().place(x=39, y=50)
+                    self.canvas.get_tk_widget().place(x=25, y=50)
 
                     if path1 is not None:
                         ans = "Path: "
@@ -168,14 +168,14 @@ class App(customtkinter.CTk):
                         res = tk.StringVar(value=ans)
                         res_label = customtkinter.CTkLabel(master=frame3,
                                                         textvariable=res,
-                                                        text_font=("MV Boli",10),
+                                                        font=("MV Boli",10),
                                                         corner_radius=8, 
                                                         width=300)
                     else:
                         res = tk.StringVar(value="No path found")
                         res_label = customtkinter.CTkLabel(master=frame3,
                                                         textvariable=res,
-                                                        text_font=("MV Boli",22),
+                                                        font=("MV Boli",22),
                                                         corner_radius=8, 
                                                         width=300)
                     res_label.place(y=350)
@@ -187,7 +187,7 @@ class App(customtkinter.CTk):
         text1 = tk.StringVar(value="Start Node")
         label1 = customtkinter.CTkLabel(master=frame2,
                                     textvariable=text1,
-                                    text_font=("MV Boli",15),
+                                    font=("MV Boli",15),
                                     corner_radius=8)
         label1.grid(row=0, column=0)
         input_field1 = customtkinter.CTkEntry(frame2)
@@ -196,7 +196,7 @@ class App(customtkinter.CTk):
         text2 = tk.StringVar(value="End Node")
         label2 = customtkinter.CTkLabel(master=frame2,
                                     textvariable=text2,
-                                    text_font=("MV Boli",15),
+                                    font=("MV Boli",15),
                                     corner_radius=8)
         label2.grid(row=2, column=0)
         input_field2 = customtkinter.CTkEntry(frame2)
