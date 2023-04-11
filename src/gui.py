@@ -2,9 +2,6 @@ import customtkinter
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-from PIL import Image, ImageTk
-import os 
-# import main as main
 import astar
 import ucs
 import graph as g
@@ -16,10 +13,6 @@ from tkinter import filedialog
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-
-        # graph = g.Graph(0)
-        # adj = []
-        # coor = []
 
         # set background color
         App.configure(self,fg_color="#C1CEFE")
@@ -75,111 +68,119 @@ class App(customtkinter.CTk):
             global adj
             global coor
             graph, adj, coor = r.read_file(file_path)
-            # Create a Figure object and add a subplot to it
-            self.fig = Figure(figsize=(5, 5), dpi=50)
-            self.ax = self.fig.add_subplot(111)
-            v.visualize1(graph, adj, coor, self.ax)
-            # Create a canvas for the Figure and add it to the GUI
-            self.canvas = FigureCanvasTkAgg(self.fig, master=frame1)
-            self.canvas.get_tk_widget().place(x=39, y=20)
+            if graph.n >= 8:
+                # Create a Figure object and add a subplot to it
+                self.fig = Figure(figsize=(5, 5), dpi=50)
+                self.ax = self.fig.add_subplot(111)
+                v.visualize1(graph, adj, coor, self.ax)
+                # Create a canvas for the Figure and add it to the GUI
+                self.canvas = FigureCanvasTkAgg(self.fig, master=frame1)
+                self.canvas.get_tk_widget().place(x=39, y=20)
+            else:
+                label_file_error = customtkinter.CTkLabel(master=frame1, 
+                                            textvariable=tk.StringVar(value="The number of nodes\ndoes not reach\nthe minimum of 8"),
+                                            text_font=("MV Boli",15),
+                                            corner_radius=8, width=300,height=270)
+                label_file_error.place(x=0)
 
         # Create the button
         select_file_button = customtkinter.CTkButton(frame1, text="Select File", width = 100, height = 32, border_width = 1, fg_color="#758EC2", command=select_file)
         select_file_button.place(x=100, y=280)
 
         def calculate():
-            start_name = input_field1.get()
-            end_name = input_field2.get()
-
-            graph_temp = copy.deepcopy(graph)
-
-            start = g.Node(-1,'',-1,-1)
-            end = g.Node(-1,'',-1,-1)
-            for node in graph_temp.nodes:
-                if node.name == start_name:
-                    start = node
-                if node.name == end_name:
-                    end = node
-
-            if start not in graph_temp.nodes or end not in graph_temp.nodes:
-                label_error= customtkinter.CTkLabel(master=frame2, 
-                                            textvariable=tk.StringVar(value="Invalid start or end"),
-                                            text_font=("MV Boli",10),
-                                            corner_radius=8)
-            else:
-                label_error= customtkinter.CTkLabel(master=frame2,textvariable=tk.StringVar(value=""))
-                
-                path2, dist2 = ucs.ucs(start,end)
-
-                # Create a Figure object and add a subplot to it
-                self.fig = Figure(figsize=(5, 5), dpi=50)
-                self.ax = self.fig.add_subplot(111)
-                v.visualize2(graph, path2, adj, coor,self.ax)
-                # Create a canvas for the Figure and add it to the GUI
-                self.canvas = FigureCanvasTkAgg(self.fig, master=frame4)
-                self.canvas.get_tk_widget().place(x=39, y=50)
-
-                if path2 is not None:
-                    ans = "Path: "
-                    for node in path2:
-                        ans += node.name
-                    ans += "\n"
-                    ans += ("distance = " + str(dist2))
-                    res2 = tk.StringVar(value=ans)
-                    res_label2 = customtkinter.CTkLabel(master=frame4,
-                                                    textvariable=res2,
-                                                    text_font=("MV Boli",10),
-                                                    corner_radius=8, 
-                                                    width=300)
-                else:
-                    res2 = tk.StringVar(value="No path found")
-                    res_label2 = customtkinter.CTkLabel(master=frame4,
-                                                    textvariable=res2,
-                                                    text_font=("MV Boli",22),
-                                                    corner_radius=8, 
-                                                    width=300)
-                res_label2.place(y=350)
+            if graph.n >= 8:
+                start_name = input_field1.get()
+                end_name = input_field2.get()
 
                 graph_temp = copy.deepcopy(graph)
 
+                start = g.Node(-1,'',-1,-1)
+                end = g.Node(-1,'',-1,-1)
                 for node in graph_temp.nodes:
                     if node.name == start_name:
                         start = node
                     if node.name == end_name:
                         end = node
-                
-                path1, dist1 = astar.astar(start, end)
 
-                # Create a Figure object and add a subplot to it
-                self.fig = Figure(figsize=(5, 5), dpi=50)
-                self.ax = self.fig.add_subplot(111)
-                v.visualize2(graph, path1, adj, coor,self.ax)
-                # Create a canvas for the Figure and add it to the GUI
-                self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
-                self.canvas.get_tk_widget().place(x=39, y=50)
-
-                if path1 is not None:
-                    ans = "Path: "
-                    for node in path1:
-                        ans += node.name
-                    ans += "\n"
-                    ans += ("distance = " + str(dist1))
-                    res = tk.StringVar(value=ans)
-                    res_label = customtkinter.CTkLabel(master=frame3,
-                                                    textvariable=res,
-                                                    text_font=("MV Boli",10),
-                                                    corner_radius=8, 
-                                                    width=300)
+                if start not in graph_temp.nodes or end not in graph_temp.nodes:
+                    label_error= customtkinter.CTkLabel(master=frame2, 
+                                                textvariable=tk.StringVar(value="Invalid start or end"),
+                                                text_font=("MV Boli",10),
+                                                corner_radius=8)
                 else:
-                    res = tk.StringVar(value="No path found")
-                    res_label = customtkinter.CTkLabel(master=frame3,
-                                                    textvariable=res,
-                                                    text_font=("MV Boli",22),
-                                                    corner_radius=8, 
-                                                    width=300)
-                res_label.place(y=350)
+                    label_error= customtkinter.CTkLabel(master=frame2,textvariable=tk.StringVar(value=""))
+                    
+                    path2, dist2 = ucs.ucs(start,end)
 
-            label_error.grid(column=0, row=5)
+                    # Create a Figure object and add a subplot to it
+                    self.fig = Figure(figsize=(5, 5), dpi=50)
+                    self.ax = self.fig.add_subplot(111)
+                    v.visualize2(graph, path2, adj, coor,self.ax)
+                    # Create a canvas for the Figure and add it to the GUI
+                    self.canvas = FigureCanvasTkAgg(self.fig, master=frame4)
+                    self.canvas.get_tk_widget().place(x=39, y=50)
+
+                    if path2 is not None:
+                        ans = "Path: "
+                        for node in path2:
+                            ans += node.name
+                        ans += "\n"
+                        ans += ("distance = " + str(dist2))
+                        res2 = tk.StringVar(value=ans)
+                        res_label2 = customtkinter.CTkLabel(master=frame4,
+                                                        textvariable=res2,
+                                                        text_font=("MV Boli",10),
+                                                        corner_radius=8, 
+                                                        width=300)
+                    else:
+                        res2 = tk.StringVar(value="No path found")
+                        res_label2 = customtkinter.CTkLabel(master=frame4,
+                                                        textvariable=res2,
+                                                        text_font=("MV Boli",22),
+                                                        corner_radius=8, 
+                                                        width=300)
+                    res_label2.place(y=350)
+
+                    graph_temp = copy.deepcopy(graph)
+
+                    for node in graph_temp.nodes:
+                        if node.name == start_name:
+                            start = node
+                        if node.name == end_name:
+                            end = node
+                    
+                    path1, dist1 = astar.astar(start, end)
+
+                    # Create a Figure object and add a subplot to it
+                    self.fig = Figure(figsize=(5, 5), dpi=50)
+                    self.ax = self.fig.add_subplot(111)
+                    v.visualize2(graph, path1, adj, coor,self.ax)
+                    # Create a canvas for the Figure and add it to the GUI
+                    self.canvas = FigureCanvasTkAgg(self.fig, master=frame3)
+                    self.canvas.get_tk_widget().place(x=39, y=50)
+
+                    if path1 is not None:
+                        ans = "Path: "
+                        for node in path1:
+                            ans += node.name
+                        ans += "\n"
+                        ans += ("distance = " + str(dist1))
+                        res = tk.StringVar(value=ans)
+                        res_label = customtkinter.CTkLabel(master=frame3,
+                                                        textvariable=res,
+                                                        text_font=("MV Boli",10),
+                                                        corner_radius=8, 
+                                                        width=300)
+                    else:
+                        res = tk.StringVar(value="No path found")
+                        res_label = customtkinter.CTkLabel(master=frame3,
+                                                        textvariable=res,
+                                                        text_font=("MV Boli",22),
+                                                        corner_radius=8, 
+                                                        width=300)
+                    res_label.place(y=350)
+
+                label_error.grid(column=0, row=5)
 
 
         # Create an input field

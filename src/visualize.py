@@ -10,7 +10,7 @@ def visualize1(graph,adj,coordinates,ax):
             for j in range(i,graph.n):
                 if adj[i][j] == 1:
                     G.add_edge(i,j)
-                    edge_labels[(i,j)] = a.eucilidean(graph.nodes[i],graph.nodes[j])
+                    edge_labels[(i,j)] = round(a.eucilidean(graph.nodes[i],graph.nodes[j]),4)
             if not graph.nodes[i].neighbors:
                 G.add_node(i)
     # set the node labels to be the node names
@@ -36,7 +36,7 @@ def visualize2(graph,path,adj,coordinates,ax):
             for j in range(i,graph.n):
                 if adj[i][j] == 1:
                     G.add_edge(i,j)
-                    edge_labels[(i,j)] = a.eucilidean(graph.nodes[i],graph.nodes[j])
+                    edge_labels[(i,j)] = round(a.eucilidean(graph.nodes[i],graph.nodes[j]),4)
                     if (i,j) not in edge_colors and (j,i) not in edge_colors:
                         edge_colors[(i,j)] = 'black'
             if not graph.nodes[i].neighbors:

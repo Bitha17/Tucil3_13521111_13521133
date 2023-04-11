@@ -6,7 +6,7 @@ def read_file(filename):
         node_names = f.readline().strip().split()
         n = len(node_names)
 
-        coordinates = [tuple(map(int, coord[1:-1].split(','))) for coord in f.readline().strip().split()]
+        coordinates = [tuple(map(float, coord[1:-1].split(','))) for coord in f.readline().strip().split()]
 
         graph = g.Graph(n)
         for i in range(n):
