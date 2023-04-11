@@ -1,10 +1,11 @@
 import astar
+import ucs
 import readfile as r
 import matplotlib.pyplot as plt
 import visualize as v
 
-graph, adj, coor = r.read_file("../test/test.txt")
-# v.visualize1(graph, adj, coor)
+graph, adj, coor = r.read_file("/Users/cettareswara/Documents/GitHub/Tucil3_13521111_13521133/test/test.txt")
+v.visualize1(graph, adj, coor)
 
 start_name = input("Start point: ")
 end_name = input("End point: ")
@@ -16,7 +17,7 @@ for node in graph.nodes:
     if node.name == end_name:
         end = node
 
-path, dist = astar.astar(start, end)
+path, dist = ucs.ucs(start, end)
 
 
 if path != None:
@@ -27,4 +28,4 @@ if path != None:
 else:
     print("no path")
 
-# v.visualize2(graph, path, adj, coor)
+v.visualize2(graph, path, adj, coor)
