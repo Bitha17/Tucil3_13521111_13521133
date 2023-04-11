@@ -55,4 +55,4 @@ def visualize2(graph,path,adj,coordinates,ax):
     # draw the graph with labels
     nx.draw_networkx(G, coordinates, with_labels=True, labels=labels, arrows=False,ax=ax)
     nx.draw_networkx_edges(G, coordinates, edge_color=sort,ax=ax)
-    nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels,ax=ax)
+    # nx.draw_networkx_edge_labels(G, coordinates, edge_labels=edge_labels,ax=ax)
