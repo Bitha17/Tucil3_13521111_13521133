@@ -27,6 +27,7 @@ Cara kerja algoritma uniform-cost search secara singkat sebagai berikut:
 
 1. Masukkan node root ke dalam priority queue
 2. Ulangi langkah berikut saat antrian (queue) tidak kosong:
+
 a. Hapus elemen dengan prioritas tertinggi
 b. Jika node yang dihapus adalah node tujuan, cetak total biaya (cost) dan hentikan algoritma
 c. Jika tidak, enqueue semua child dari node saat ini ke priority queue, dengan biaya
@@ -45,11 +46,13 @@ Cara kerja algoritma A* search secara singkat sebagai berikut:
 6. Hapus Q dari OPEN LIST.
 7. Generate delapan turunan Q dan tetapkan Q sebagai induknya.
 8. Untuk setiap keturunan:
+
 a. Jika menemukan penerus adalah tujuannya, pencarian dihentikan
 b. Jika tidak, hitung g dan h untuk penerusnya.
 penerus.g = q.g + jarak yang dihitung antara penerus dan q. suksesor.h = jarak terhitung antara suksesor dan tujuan. penerus.f = penerus.g ditambah penerus.h
 c. Lewati penerus ini jika node dalam daftar OPEN dengan lokasi yang sama tetapi nilai f lebih rendah dari penggantinya.
 d. Lewati penerusnya jika ada simpul dalam CLOSE LIST dengan posisi yang sama dengan penerusnya tetapi nilai f lebih rendah; jika tidak, tambahkan simpul ke ujung OPEN LIST (untuk loop).
+
 9. Push Q ke dalam CLOSE LIST dan akhiri loop sementara.
 
 ## Penjelasan Alur Program
