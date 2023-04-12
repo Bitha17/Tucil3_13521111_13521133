@@ -28,10 +28,9 @@ Cara kerja algoritma uniform-cost search secara singkat sebagai berikut:
 1. Masukkan node root ke dalam priority queue
 2. Ulangi langkah berikut saat antrian (queue) tidak kosong:
 
-a. Hapus elemen dengan prioritas tertinggi
-b. Jika node yang dihapus adalah node tujuan, cetak total biaya (cost) dan hentikan algoritma
-c. Jika tidak, enqueue semua child dari node saat ini ke priority queue, dengan biaya
-kumulatifnya dari root sebagai prioritas
+a. Hapus elemen dengan prioritas tertinggi <br>
+b. Jika node yang dihapus adalah node tujuan, cetak total biaya (cost) dan hentikan algoritma <br>
+c. Jika tidak, enqueue semua child dari node saat ini ke priority queue, dengan biaya kumulatifnya dari root sebagai prioritas <br>
 
 ### Algoritma A*
 Algoritma A* (A Star) adalah algoritma pencarian yang digunakan untuk menemukan jalur terpendek antara titik awal dan akhir. Algoritma ini digunakan untuk penjelajahan peta guna menemukan jalur terpendek yang akan diambil.
@@ -47,17 +46,17 @@ Cara kerja algoritma A* search secara singkat sebagai berikut:
 7. Generate delapan turunan Q dan tetapkan Q sebagai induknya.
 8. Untuk setiap keturunan:
 
-a. Jika menemukan penerus adalah tujuannya, pencarian dihentikan
-b. Jika tidak, hitung g dan h untuk penerusnya.
-penerus.g = q.g + jarak yang dihitung antara penerus dan q. suksesor.h = jarak terhitung antara suksesor dan tujuan. penerus.f = penerus.g ditambah penerus.h
-c. Lewati penerus ini jika node dalam daftar OPEN dengan lokasi yang sama tetapi nilai f lebih rendah dari penggantinya.
-d. Lewati penerusnya jika ada simpul dalam CLOSE LIST dengan posisi yang sama dengan penerusnya tetapi nilai f lebih rendah; jika tidak, tambahkan simpul ke ujung OPEN LIST (untuk loop).
+a. Jika menemukan penerus adalah tujuannya, pencarian dihentikan <br>
+b. Jika tidak, hitung g dan h untuk penerusnya. <br>
+penerus.g = q.g + jarak yang dihitung antara penerus dan q. suksesor.h = jarak terhitung antara suksesor dan tujuan. penerus.f = penerus.g ditambah penerus. <br>
+c. Lewati penerus ini jika node dalam daftar OPEN dengan lokasi yang sama tetapi nilai f lebih rendah dari penggantinya. <br>
+d. Lewati penerusnya jika ada simpul dalam CLOSE LIST dengan posisi yang sama dengan penerusnya tetapi nilai f lebih rendah; jika tidak, tambahkan simpul ke ujung OPEN LIST (untuk loop).<br>
 
 9. Push Q ke dalam CLOSE LIST dan akhiri loop sementara.
 
 ## Penjelasan Alur Program
 
-1. Tekan button `select file`
+1. Tekan button `select file` 
 2. Pilih file test dengan format .txt yang akan digunakan untuk pencarian lintasan tersingkat
 3. Tunggu hingga ditampilkan graph/ peta yang merepresentasikan file
 4. Masukkan titik mula dan titik akhir pada kolom yang tersedia
