@@ -108,7 +108,7 @@ class App(customtkinter.CTk):
                                                 font=("MV Boli",10),
                                                 corner_radius=8)
                 else:
-                    label_error= customtkinter.CTkLabel(master=frame2,textvariable=tk.StringVar(value=""))
+                    label_error= customtkinter.CTkLabel(master=frame2,textvariable=tk.StringVar(value=" "),width=100)
                     
                     path2, dist2 = ucs.ucs(start,end)
 
